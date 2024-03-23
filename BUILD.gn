@@ -3,9 +3,6 @@ config("myconfig") {
   defines = ["SPDLOG_NO_EXCEPTIONS","SPDLOG_COMPILED_LIB"]
 }
 
-declare_args() {
-  use_spd_libs = false
-}
 
 static_library("spdlog") {
   public_configs = [ ":myconfig" ]
@@ -15,10 +12,7 @@ static_library("spdlog") {
     "src/color_sinks.cpp",
     "src/file_sinks.cpp",
     "src/async.cpp",
-    "src/cfg.cpp"
+    "src/cfg.cpp",
+    "src/bundled_fmtlib_format.cpp"
   ]
-  if(use_spd_libs)
-  {
-    libs = [ "spdlog", "pthread", "fmt"  ]
-  }
 }
