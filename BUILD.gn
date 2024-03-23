@@ -1,0 +1,24 @@
+config("myconfig") {
+  include_dirs = [ "include" ]
+  defines = ["SPDLOG_NO_EXCEPTIONS","SPDLOG_COMPILED_LIB"]
+}
+
+declare_args() {
+  use_spd_libs = false
+}
+
+static_library("spdlog") {
+  public_configs = [ ":myconfig" ]
+  sources = [
+    "src/spdlog.cpp",
+    "src/stdout_sinks.cpp",
+    "src/color_sinks.cpp",
+    "src/file_sinks.cpp",
+    "src/async.cpp",
+    "src/cfg.cpp"
+  ]
+  if(use_spd_libs)
+  {
+    libs = [ "spdlog", "pthread", "fmt"  ]
+  }
+}
